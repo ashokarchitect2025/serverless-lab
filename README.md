@@ -1,4 +1,4 @@
-# LevelUp! Lab for Serverless
+# Serverless Lab
 
 ## Lab Overview And High Level Design
 
