@@ -1,8 +1,8 @@
 # Lab for Serverless
 
-## Lab Overview And High Level Design
+## Lab Overview And High-Level Design
 
-Let's start with the High Level Design.
+Let's start with the High-Level Design.
 ![High Level Design](./images/high-level-design.jpg)
 An Amazon API Gateway is a collection of resources and methods. For this tutorial, you create one resource (DynamoDBManager) and define one method (POST) on it. The method is backed by a Lambda function (LambdaFunctionOverHttps). That is, when you call the API through an HTTPS endpoint, Amazon API Gateway invokes the Lambda function.
 
@@ -11,9 +11,9 @@ The POST method on the DynamoDBManager resource supports the following DynamoDB 
 * Create, update, and delete an item.
 * Read an item.
 * Scan an item.
-* Other operations (echo, ping), not related to DynamoDB, that you can use for testing.
+* Other operations (echo, ping) not related to DynamoDB that you can use for testing.
 
-The request payload you send in the POST request identifies the DynamoDB operation and provides necessary data. For example:
+The request payload you send in the POST request identifies the DynamoDB operation and provides the necessary data. For example:
 
 The following is a sample request payload for a DynamoDB create item operation:
 
@@ -46,11 +46,11 @@ The following is a sample request payload for a DynamoDB read item operation:
 
 ### Create Custom Policy 
 
-We need to create a custom policy for least privilege
+We need to create a custom policy that adheres to the principle of least privilege.
 
-1. Open policies page in the IAM console
-2. Click "Create policy" on top right corner
-3. In the policy editor, click JSON, and paste the following 
+1. Open the policies page in the IAM console
+2. Click "Create policy" on the top right corner
+3. In the policy editor, click JSON and paste the following 
 
 ![Create policy](./images/create-policy.jpg)
 
@@ -84,7 +84,7 @@ We need to create a custom policy for least privilege
     ]
     }
 ```
-4. Give name "lambda-custom-policy", and click "Create policy" on botom right
+4. Give name "lambda-custom-policy", and click "Create policy" on the bottom right
 
 ### Create Lambda IAM Role 
 
@@ -112,7 +112,7 @@ To create an execution role
 
 ![Create function](./images/create-lambda.jpg)
 
-2. Select "Author from scratch". Use name **LambdaFunctionOverHttps** , select **Python 3.13** as Runtime. Under Permissions, click the arrow beside "Change default execution role", then "use an existing role" and select **lambda-apigateway-role** that we created, from the drop down
+2. Select "Author from scratch". Use name **LambdaFunctionOverHttps** , select **Python 3.13** as Runtime. Under Permissions, click the arrow beside "Change default execution role", then "use an existing role" and select **lambda-apigateway-role** that we created, from the drop-down
 
 3. Click "Create function"
 
@@ -163,7 +163,7 @@ def lambda_handler(event, context):
 ### Test Lambda Function
 
 Let's test our newly created function. We haven't created DynamoDB and the API yet, so we'll do a sample echo operation. The function should output whatever input we pass.
-1. Click the "Test" tab right beside "Code" tab
+1. Click the "Test" tab right beside the "Code" tab
 
 2. Give "Event name" as echotest
 
@@ -177,11 +177,11 @@ Let's test our newly created function. We haven't created DynamoDB and the API y
     }
 }
 ```
-3. Click "Test", and it will execute the test event. You should see the output in the console
+3. Click "Test" to execute the test event. You should see the output in the console
 
 ![Execute test event](./images/execute-test.jpg)
 
-We're all set to create DynamoDB table and an API using our lambda as backend!
+We're all set to create a DynamoDB table and an API using our Lambda as a backend!
 
 ### Create DynamoDB Table
 
@@ -202,14 +202,14 @@ Create the DynamoDB table that the Lambda function uses.
 ### Create API
 
 **To create the API**
-1. Go to API Gateway console
+1. Go to the API Gateway console
 2. Click Create API
 3. Scroll down and select "Build" for REST API
 4. Give the API name as "DynamoDBOperations", keep everything as is, click "Create API"
 
 ![Create REST API](./images/create-new-api.jpg)
 
-5. Each API is collection of resources and methods that are integrated with backend HTTP endpoints, Lambda functions, or other AWS services. Typically, API resources are organized in a resource tree according to the application logic. At this time you only have the root resource, but let's add a resource next. Click "Create Resource"
+5. Each API is a collection of resources and methods that are integrated with backend HTTP endpoints, Lambda functions, or other AWS services. Typically, API resources are organized in a resource tree according to the application logic. At this time you only have the root resource, but let's add a resource next. Click "Create Resource"
 
 6. Input "DynamoDBManager" in the Resource Name. Click "Create Resource"
 
@@ -233,11 +233,11 @@ In this step, you deploy the API that you created to a stage called prod.
 
 1. Click "Deploy API" on top right
 
-2. Now it is going to ask you about a stage. Select "[New Stage]" for "Stage". Give "Prod" as "Stage name". Click "Deploy"
+2. Next, it will ask you about a stage. Select "[New Stage]" for "Stage". Give "Prod" as "Stage name". Click "Deploy"
 
 ![Deploy API to Prod Stage](./images/deploy-api-2.jpg)
 
-3. We're all set to run our solution! To invoke our API endpoint, we need the endpoint url. In the "Stages" screen, expand the stage "Prod", keep expanding till you see "POST", select "POST" method, and copy the "Invoke URL" from screen
+3. We're all set to run our solution! To invoke our API endpoint, we need the endpoint URL. In the "Stages" screen, expand the stage "Prod", keep expanding till you see "POST", select "POST" method, and copy the "Invoke URL" from screen
 
 ![Copy Invoke Url](./images/copy-invoke-url.jpg)
 
